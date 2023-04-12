@@ -18,9 +18,9 @@ persist_with: bct_project_test_default_datagroup
 
 #explore: fund_performacne_mpfa {}
 
-#explore: datamart_throughput {}
+explore: datamart_throughput {}
 
-#explore: bd_tableau_testing {}
+explore: bd_tableau_testing {}
 
 explore: fund_switching {}
 
