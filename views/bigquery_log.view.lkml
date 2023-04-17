@@ -21,12 +21,12 @@ view: BigQuery_Log {
   }
 
   dimension: totalProcessed_MB {
-    type: string
+    type: number
     sql: cast(${TABLE}.protopayload_auditlog.servicedata_v1_bigquery.jobCompletedEvent.job.jobStatistics.totalProcessedBytes /1048576  as numeric) ;;
   }
 
   dimension: totalBilled_MB {
-    type: string
+    type: number
     sql: cast(${TABLE}.protopayload_auditlog.servicedata_v1_bigquery.jobCompletedEvent.job.jobStatistics.totalBilledBytes /1048576  as numeric) ;;
   }
 
@@ -35,8 +35,19 @@ view: BigQuery_Log {
     sql: ${TABLE}.protopayload_auditlog.servicedata_v1_bigquery.jobCompletedEvent.job.jobConfiguration.query.query ;;
   }
 
-  dimension: timestamp_hkt {
-    type: string
+  dimension_group: timestamp_hkt {
+    type: time
+    timeframes: [
+      raw,
+      hour,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: timestamp
     sql: timestamp_add(${TABLE}.timestamp, interval 480 minute) ;;
   }
 
